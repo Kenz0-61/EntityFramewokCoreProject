@@ -22,7 +22,8 @@ namespace EntityFramewokCoreProject.Controllers
 
         public IActionResult Update_Insert(int? id) //int? parametresi Nullable'da gelebilir.// Http Get İşlemidir.
         {
-            Kategori obj = new();
+            Kategori? obj = new();//obj? parametresi Nullable'da gelebilir.
+
             if (id == null)
             {
                 return View(obj);
