@@ -1,0 +1,69 @@
+﻿@model DataModel.Models.Kategori
+@{
+    ViewData["Title"] = "Kategori Oluştur";
+}
+
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="KategoriId
+" />
+        @if (Model.KategoriId != 0)
+        {
+            ViewData["Title"] = "Kategori Düzenle";
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@ViewData["Title"]</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label class="fw-bold" asp-for="KategoriAdi"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="KategoriAdi" class="form-control" id="myInput" />
+                    <span asp-validation-for="KategoriAdi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row p-2">
+                <div class="col-4 offset-4">
+                    @if (Model.KategoriId!=0)
+                    {
+                        <button type="submit" class="btn btn-primary form-control">
+                            Kategori Güncelle
+
+                        </button>
+                    }
+                    else
+                    {
+
+                        <button type="submit" class="btn btn-primary form-control" id="myButton" disabled>
+                            Kategori OLuştur
+
+                        </button>
+                    }
+                </div>
+                <div class="col-4">
+                    <a asp-action="index" class="btn btn-success form-control">Listeye GeriDön</a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+</form>
+<script>
+    const myInput = document.getElementById("myInput");
+    const myButton = document.getElementById("myButton");
+
+    myInput.addEventListener("input", function () {
+        if (myInput.value !== "") {
+            myButton.disabled = false;
+        } else {
+            myButton.disabled = true;
+        }
+    });
+</script>
+
+@section Scripts {<partial name="_ValidationScriptsPartial" />}
+
+

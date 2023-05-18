@@ -1,0 +1,93 @@
+﻿@model DataModel.Models.Yazar
+@{
+    var title = "Yazar Oluştur.";
+}
+
+<form method="post">
+    <div class="row p-3 border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Yazar_ID" /> @*Yazar_Id tutacak gizli olarak tutacaktır.*@
+        @if (Model.Yazar_ID != 0)
+        {
+            title = "Yazar Düzenle";
+        }
+        <div class="col-12 border-bottom">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="form-group-row">
+                <div class="col-4">
+                    <label asp-for="YazarAdi"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="YazarAdi" class="form-control" />
+                    <span asp-validation-for="YazarAdi" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group-row">
+                <div class="col-4">
+                    <label asp-for="YazarSoyadi"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="YazarSoyadi" class="form-control" />
+                    <span asp-validation-for="YazarSoyadi" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-row">
+                <div class="col-4">
+                    <label asp-for="DogumTarihi"></label>
+                </div>
+                <div class="col-8">
+                    @if (Model.Yazar_ID != 0)
+                    {
+                        <input asp-for="DogumTarihi" class="form-control" placeholder="mm/dd/yyyy" id="datepicker_dob" type="text" />
+                    }
+                    else
+                    {
+                        <input asp-for="DogumTarihi" class="form-control" placeholder="mm/dd/yyyy" id="datepicker_dob" type="text" />
+                    }
+                    <span asp-validation-for="DogumTarihi" class="text-danger"></span>
+
+
+                </div>
+            </div>
+            <div class="form-group-row">
+                <div class="col-4">
+                    <label asp-for="Lokasyon"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Lokasyon" class="form-control" />
+                    <span asp-validation-for="Lokasyon" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-row">
+                <div class="col-4 offset4">
+                    @if (Model.Yazar_ID != 0)
+                    {
+                        <button type="submit" class="btn btn-primary form-control">Güncelle</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary form-control">Ekle</button>
+                    }
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Dön</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+<script>
+    $(function () {
+        $("#datepicker_dob").datepicker(
+            {}
+        )
+    }
+    )
+</script>
+
