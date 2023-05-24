@@ -10,6 +10,8 @@ namespace DataModel.Models
 {
     public class YayinEvi
     {
+        public ICollection<Kitap> Kitaplar { get; set; } /*= new List<Kitap>();*/ //List olarak eklenerek bire çok ilişki  gerçekleştirmektedir.
+
         [Key]
         public int YayinEvi_Id { get; set; }
         [Required]
@@ -19,6 +21,7 @@ namespace DataModel.Models
 
         [NotMapped]
         public int YayinEviDetay { get; set; }
-        public List<Kitap> Kitap { get; set; } //List olarak eklenerek bire çok ilişki  gerçekleştirmektedir.
+        
+        
     }
 }

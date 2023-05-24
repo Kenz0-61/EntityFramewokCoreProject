@@ -55,7 +55,7 @@ namespace EntityFramewokCoreProject.Controllers
                     _context.YayinEvleri.Update(obj);
                 }
                 _context.SaveChanges();//database yansıtma
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             return View(obj);
         }

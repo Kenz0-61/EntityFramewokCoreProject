@@ -27,8 +27,8 @@ namespace DataModel.Models
 
         [ForeignKey("KitapDetay")]
         public int KitapDetay_ID { get; set; }
-
         public KitapDetay KitapDetay { get; set; }
+
 
         [ForeignKey("YayinEvi")] //ForeignKey DataAnatations'a ForeignKey yapılacak Tablo Objesi Verilmelidir.
         public int YayinEvi_ID { get; set; }

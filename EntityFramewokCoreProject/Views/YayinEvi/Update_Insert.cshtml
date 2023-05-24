@@ -5,7 +5,8 @@
 <form method="post">
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input type="hidden" asp-for="YayinEvi_Id" /> @*Yazar_Id tutacak gizli olarak tutacaktır.*@
+        <input type="hidden" asp-for="YayinEvi_Id" />@*Yazar_Id tutacak gizli olarak tutacaktır.*@
+        <input type="hidden" asp-for="Kitaplar" />@*Yazar_Id tutacak gizli olarak tutacaktır.*@
         @if (Model.YayinEvi_Id != 0)
         {
             title = "Yayın Evi Düzenle";
@@ -14,7 +15,7 @@
             <h2 class="text-primary">@title</h2>
         </div>
         <div class="col-8 pt-4">
-            <div class="form-group row">
+            <div class="form-group row p-2">
                 <div class="col-4">
                     <label class="fw-bold" asp-for="YayinEviAdi"></label>
                 </div>
@@ -24,7 +25,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row p-2">
                 <div class="col-4">
                     <label asp-for="Lokasyon"></label>
                 </div>
@@ -35,7 +36,7 @@
             </div>
             
 
-            <div class="form-grou row">
+            <div class="form-grou row p-2">
                 <div class="col-4 offset-4">
                     @if (Model.YayinEvi_Id != 0)
                     {

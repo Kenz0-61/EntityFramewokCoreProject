@@ -38,6 +38,8 @@ namespace EntityFramewokCoreProject.Controllers
             return View(obj);
         }
 
+        //TODO TODO Jquery tarih seçme özelliği çalışmamaktadır. Bu daha sonra kontrol edilip tekrar denenecektir...
+
         [ValidateAntiForgeryToken]//Güvenlik amaçlı attributedür.Client tarafında gönderilecek talepleri sitenin ön yüzünden geldiğini anlamak için kontrol sağlayan bir attributedür. Bot kullanıcılarından vesair gibi yazılımlardan devamlı istek atılma gibi durumları engellemek için kullanılabilinir.
         [HttpPost]
         public IActionResult Update_Insert(Yazar obj)
@@ -56,7 +58,7 @@ namespace EntityFramewokCoreProject.Controllers
                 }
                 _context.SaveChanges();//database yansıtma
                 return RedirectToAction("Index");
-            }
+            }  
             return View(obj);
         }
 
