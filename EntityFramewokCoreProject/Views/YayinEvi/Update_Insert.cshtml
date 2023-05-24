@@ -6,7 +6,7 @@
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="YayinEvi_Id" />@*Yazar_Id tutacak gizli olarak tutacaktır.*@
-        <input type="hidden" asp-for="Kitaplar" />@*Yazar_Id tutacak gizli olarak tutacaktır.*@
+        <input type="hidden" asp-for="Kitaplar" />@*Kitaplar tutacak gizli olarak tutacaktır.*@
         @if (Model.YayinEvi_Id != 0)
         {
             title = "Yayın Evi Düzenle";

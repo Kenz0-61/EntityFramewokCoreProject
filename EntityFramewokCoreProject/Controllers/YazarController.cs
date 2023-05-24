@@ -38,7 +38,7 @@ namespace EntityFramewokCoreProject.Controllers
             return View(obj);
         }
 
-        //TODO TODO Jquery tarih seçme özelliği çalışmamaktadır. Bu daha sonra kontrol edilip tekrar denenecektir...
+        //TODO TODO Jquery tarih seçme özelliği çalışmamaktadır. Bu daha sonra kontrol edilip tekrar denenecektir... https://www.youtube.com/watch?v=9kTDkXo_ELM&list=PLZdnHi0jcTf0lGyIyDY5_vLExaXAb-TpZ&index=31&pp=iAQB
 
         [ValidateAntiForgeryToken]//Güvenlik amaçlı attributedür.Client tarafında gönderilecek talepleri sitenin ön yüzünden geldiğini anlamak için kontrol sağlayan bir attributedür. Bot kullanıcılarından vesair gibi yazılımlardan devamlı istek atılma gibi durumları engellemek için kullanılabilinir.
         [HttpPost]
