@@ -29,7 +29,7 @@ namespace DataAccess.Data
         public DbSet<YayinEvi> YayinEvleri { get; set; }
         public DbSet<Kitap> Kitaplar { get; set; }
 
-        public DbSet<Kitap> KitapDetay { get; set; }
+        public DbSet<KitapDetay> KitapDetaylar { get; set; }
 
         public DbSet<KitapYazar> KitapYazarlar { get; set; }
         

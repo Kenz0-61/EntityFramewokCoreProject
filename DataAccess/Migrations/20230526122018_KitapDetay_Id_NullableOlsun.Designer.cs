@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230526122018_KitapDetay_Id_NullableOlsun")]
+    partial class KitapDetay_Id_NullableOlsun
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,7 +212,7 @@ namespace DataAccess.Migrations
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
-                    b.Property<int?>("Kategori_ID")
+                    b.Property<int>("Kategori_ID")
                         .HasColumnType("int");
 
                     b.Property<string>("KitapAdi")
@@ -219,7 +222,7 @@ namespace DataAccess.Migrations
                     b.Property<int?>("KitapDetay_ID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("YayinEvi_ID")
+                    b.Property<int>("YayinEvi_ID")
                         .HasColumnType("int");
 
                     b.HasKey("KitapId");
@@ -232,7 +235,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("YayinEvi_ID");
 
-                    b.ToTable("Kitaplar");
+                    b.ToTable("Kitap");
                 });
 
             modelBuilder.Entity("DataModel.Models.KitapDetay", b =>
@@ -254,7 +257,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("KitapDetayID");
 
-                    b.ToTable("KitapDetaylar");
+                    b.ToTable("KitapDetay");
                 });
 
             modelBuilder.Entity("DataModel.Models.KitapYazar", b =>
@@ -384,7 +387,9 @@ namespace DataAccess.Migrations
                 {
                     b.HasOne("DataModel.Models.Kategori", "Kategori")
                         .WithMany()
-                        .HasForeignKey("Kategori_ID");
+                        .HasForeignKey("Kategori_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DataModel.Models.KitapDetay", "KitapDetay")
                         .WithOne("Kitap")
@@ -392,7 +397,9 @@ namespace DataAccess.Migrations
 
                     b.HasOne("DataModel.Models.YayinEvi", "YayinEvi")
                         .WithMany("Kitaplar")
-                        .HasForeignKey("YayinEvi_ID");
+                        .HasForeignKey("YayinEvi_ID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kategori");
 

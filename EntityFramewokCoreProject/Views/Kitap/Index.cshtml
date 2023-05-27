@@ -1,0 +1,73 @@
+﻿@model IEnumerable<DataModel.Models.Kitap>
+
+<br />
+<br />
+<div class="border p-4 bg-white">
+    <div class="row">
+        <div class="col-8">
+            <h2 class="text-info">Kitap Listesi</h2>
+        </div>
+
+        <div class="col-2">
+            <a asp-action="ABC" class="btn btn-warning form-control">ABC</a>
+        </div>
+        <div class="col-2 text-right">
+            <a asp-action="Update_Insert" class="btn btn-info form-control">Yeni Oluştur</a>
+        </div>
+    </div>
+    <br />
+
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table-striped border">
+                <tr class="table-secondary">
+                    <th>Kitap Adı</th>
+                    <th>Fiyat</th>
+                    <th>Yayın Evi</th>
+                    <th>Yazar</th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.KitapAdi</td>
+                        <td>@item.Fiyat</td>
+
+                        
+                <td>@item.YayinEvi.YayinEviAdi</td>
+
+
+                        @*
+                <td>
+                @{
+                var yazarlar = "";
+                }
+                @foreach (var yzrlr in       item.KitapYazarlar)
+                {
+                yazarlar += yzrlr.Yazar.YazarAdSoyad + ",";
+                }
+                @yazarlar.Trim().TrimEnd(',');
+                </td>*@
+
+
+                        <td>
+                            <a class="btn btn-primary text-white" asp-action="Update_Inser" asp-route-Id="@item.KitapId">Düzenle</a>
+
+                            <a class="btn btn-info text-white" asp-action="Detaylar" asp-route-Id="@item.KitapId">Düzenle</a>
+
+                            <a class="btn btn-danger text-white" asp-action="Sil" asp-route-Id="@item.KitapId">Sil</a>
+
+                            <a class="btn btn-success text-white" asp-action="YazarYonet" asp-route-Id="@item.KitapId">Yazarlar</a>
+
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>Yayın Evi Bulunamadı...</p>
+        }
+    </div>
+</div>

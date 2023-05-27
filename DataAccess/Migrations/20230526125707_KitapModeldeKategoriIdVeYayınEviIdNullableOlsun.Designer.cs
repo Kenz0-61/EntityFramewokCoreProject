@@ -4,6 +4,7 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230526125707_KitapModeldeKategoriIdVeYayınEviIdNullableOlsun")]
+    partial class KitapModeldeKategoriIdVeYayınEviIdNullableOlsun
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -232,7 +235,7 @@ namespace DataAccess.Migrations
 
                     b.HasIndex("YayinEvi_ID");
 
-                    b.ToTable("Kitaplar");
+                    b.ToTable("Kitap");
                 });
 
             modelBuilder.Entity("DataModel.Models.KitapDetay", b =>
@@ -254,7 +257,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("KitapDetayID");
 
-                    b.ToTable("KitapDetaylar");
+                    b.ToTable("KitapDetay");
                 });
 
             modelBuilder.Entity("DataModel.Models.KitapYazar", b =>
