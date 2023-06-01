@@ -20,12 +20,12 @@
     <div>
         @if (Model.Count() > 0)
         {
-            <table class="table-striped border">
+            <table class="table table-striped border">
                 <tr class="table-secondary">
                     <th>Kitap Adı</th>
                     <th>Fiyat</th>
                     <th>Yayın Evi</th>
-                    <th>Yazar</th>
+                    @*<th>Yazar</th>*@
                     <th></th>
                 </tr>
                 @foreach (var item in Model)
@@ -52,9 +52,9 @@
 
 
                         <td>
-                            <a class="btn btn-primary text-white" asp-action="Update_Inser" asp-route-Id="@item.KitapId">Düzenle</a>
+                            <a class="btn btn-primary text-white" asp-action="Update_Insert" asp-route-Id="@item.KitapId">Düzenle</a>
 
-                            <a class="btn btn-info text-white" asp-action="Detaylar" asp-route-Id="@item.KitapId">Düzenle</a>
+                            <a class="btn btn-info text-white" asp-action="Detaylar" asp-route-Id="@item.KitapId">Detaylar</a>
 
                             <a class="btn btn-danger text-white" asp-action="Sil" asp-route-Id="@item.KitapId">Sil</a>
 

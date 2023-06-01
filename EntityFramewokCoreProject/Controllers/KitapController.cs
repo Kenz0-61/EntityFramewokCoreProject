@@ -3,6 +3,7 @@ using DataModel.Models;
 using DataModel.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace EntityFramewokCoreProject.Controllers
 {
@@ -16,17 +17,20 @@ namespace EntityFramewokCoreProject.Controllers
         }
         public IActionResult Index()
         {
-            List<Kitap> objList = _context.Kitaplar.ToList();
+            /* 3 farklı join işlemi kullanılmıştır.EFCore İçin
+                1. Yöntem: Eager Loading Yöntemi (Include) en performanslı yöntemdir.*/
+            List<Kitap> objList = _context.Kitaplar.Include(a => a.YayinEvi).ToList();
 
-            foreach (var obj in objList)
+            /* foreach (var obj in objList)
             {
-                //Uygulanabilir ama server açısından verimli değildir.
-                //obj.YayinEvi = _context.YayinEvleri.FirstOrDefault(a => a.YayinEvi_Id == obj.YayinEvi_ID);
+             2. Yöntem: Uygulanabilir ama server açısından verimli değildir. YayınEvinin sayısı kadar sorgusu server'da çalıştırılır.
 
-                //Uygulanabilir ve server açısından verimlidir.EXPŞICIT LOADING yöntemi... Aynı veriye sahip olanlar için bir tane sorgu yani distinct işlemi yapmış oluyoruz server performaslı calısması için diyebiliriz.
+                obj.YayinEvi = _context.YayinEvleri.FirstOrDefault(a => a.YayinEvi_Id == obj.YayinEvi_ID);
+
+                //3. Yöntem: Uygulanabilir ve server açısından verimlidir.EXPLICIT LOADING yöntemi... Aynı veriye sahip olanlar için bir tane sorgu yani distinct işlemi yapmış oluyoruz server performaslı calısması için diyebiliriz. Kaçtane farklı yayın evi varsa okadar sorgu çekmektedir.
 
                 _context.Entry(obj).Reference(a => a.YayinEvi).Load();
-            }
+            } */
             return View(objList);
         }
 
@@ -93,16 +97,15 @@ namespace EntityFramewokCoreProject.Controllers
             KitapVM? obj = new();//obj? parametresi Nullable'da gelebilir.
 
 
-
             if (id == null)
             {
                 return View(obj);
             }
 
             //düzenleme
-
-            obj.Kitap = _context.Kitaplar.FirstOrDefault(a => a.KitapId == id);
-            obj.Kitap.KitapDetay = _context.KitapDetaylar.FirstOrDefault(a => a.KitapDetayID == obj.Kitap.KitapDetay_ID);
+            //1.Yöntem: Eager Loading Yöntemi(Include) en performanslı yöntemdir.
+            obj.Kitap = _context.Kitaplar.Include(a => a.KitapDetay).FirstOrDefault(a => a.KitapId == id);
+            //obj.Kitap.KitapDetay = _context.KitapDetaylar.FirstOrDefault(a => a.KitapDetayID == obj.Kitap.KitapDetay_ID);
 
             if (obj == null)
             {
@@ -119,25 +122,39 @@ namespace EntityFramewokCoreProject.Controllers
         {
 
 
-            if (obj.Kitap.KitapId == 0)
+            if (obj.Kitap.KitapDetay_ID == 0 || obj.Kitap.KitapDetay_ID == null)
             {
                 //Create(Oluşturma)
-                _context.Kitaplar.Add(obj.Kitap);
+                _context.KitapDetaylar.Add(obj.Kitap.KitapDetay);
                 _context.SaveChanges();
 
-                var kitapDb = _context.Kitaplar.FirstOrDefault(a=> a.KitapId==obj.Kitap.KitapId);
+                var kitapDb = _context.Kitaplar.FirstOrDefault(a => a.KitapId == obj.Kitap.KitapId);
 
-                kitapDb.KitapDetay_ID = obj.Kitap.KitapDetay_ID;
+                kitapDb.KitapDetay_ID = obj.Kitap.KitapDetay.KitapDetayID;
                 _context.SaveChanges();
             }
             else
             {
                 //Update İşlemi gelmiştir var olan kayıt üzerinde güncelleme işlemi gelmiştir.
                 _context.Kitaplar.Update(obj.Kitap);
-                _context.SaveChanges(); 
+                _context.SaveChanges();
             }
-            
+
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ABC()
+        {
+            // 
+            IEnumerable<Kitap> KitapListesi1 = _context.Kitaplar;
+            var filtreleme1 = KitapListesi1.Where(a => a.Fiyat > 25).ToList();
+
+
+            IQueryable<Kitap> KitapListesi2 = _context.Kitaplar;
+            var filtreleme2 = KitapListesi2.Where(a => a.Fiyat > 25).ToList();
+
+            return RedirectToAction("Index");
+
         }
     }
 }
