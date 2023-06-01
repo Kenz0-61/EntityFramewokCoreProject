@@ -145,10 +145,19 @@ namespace EntityFramewokCoreProject.Controllers
 
         public IActionResult ABC()
         {
-            // 
+            /*SELECT [k].[KitapId], [k].[Fiyat], [k].[ISBN], [k].[Kategori_ID], [k].[KitapAdi], [k].[KitapDetay_ID], [k].[YayinEvi_ID]
+                FROM [Kitaplar] AS [k]*/
+
+            //Ienumearable ile refere edilen instance her ne kadar kod tarafında efcore where methodunu kullansakta  tarayıcı memory'de filtreleme yapar database'de filtrleme yapmaz buda performas sorunları ortaya cıkararır. Yukarıda databse'de oluşturduğu sorgu output pencersinden alınıp eklenmiştir...
+
             IEnumerable<Kitap> KitapListesi1 = _context.Kitaplar;
             var filtreleme1 = KitapListesi1.Where(a => a.Fiyat > 25).ToList();
 
+            /*SELECT [k].[KitapId], [k].[Fiyat], [k].[ISBN], [k].[Kategori_ID], [k].[KitapAdi], [k].[KitapDetay_ID], [k].[YayinEvi_ID]
+                FROM [Kitaplar] AS [k]
+            //    WHERE [k].[Fiyat] > 25.0E0*/
+
+            //Iqueryable database'de filtreleme yapar. Sunucuya performans sağlar. Yukarıda databse'de oluşturduğu sorgu output pencersinden alınıp eklenmiştir...
 
             IQueryable<Kitap> KitapListesi2 = _context.Kitaplar;
             var filtreleme2 = KitapListesi2.Where(a => a.Fiyat > 25).ToList();
